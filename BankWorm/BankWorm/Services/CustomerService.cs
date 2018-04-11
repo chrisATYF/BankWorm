@@ -17,9 +17,9 @@ namespace BankWorm.Services
             {
                 new Customer
                 {
-                    Id = 123,
-                    Email = "chris.guitarist009@gmailcom",
-                    Name = "Chris McDonald"
+                    CustomerId = 123,
+                    CustomerEmail = "chris.guitarist009@gmailcom",
+                    CustomerName = "Chris McDonald"
                 }
             };
         }
@@ -31,15 +31,15 @@ namespace BankWorm.Services
         
         public Customer GetCustomerById(int customerId)
         {
-            return _customers.FirstOrDefault(c => c.Id == customerId);
+            return _customers.FirstOrDefault(c => c.CustomerId == customerId);
         }
 
         public void Create(string name, string email)
         {
             var customer = new Customer
             {
-                Name = name,
-                Email = email
+                CustomerName = name,
+                CustomerEmail = email
             };
 
             _customers.ToList().Add(customer);
