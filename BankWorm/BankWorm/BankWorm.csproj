@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Enums\TransactionType.cs" />
-    <Compile Include="Models\Accounts.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Transactions.cs" />
     <Compile Include="Program.cs" />

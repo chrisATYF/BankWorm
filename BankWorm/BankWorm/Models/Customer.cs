@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace BankWorm.Models
 {
-    class Customer : Accounts
+    public class Customer
     {
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
+        public IEnumerable<Account> Accounts { get; set; }
+        
     }
 }

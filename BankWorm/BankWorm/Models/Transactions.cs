@@ -7,7 +7,7 @@ using BankWorm.Enums;
 
 namespace BankWorm.Models
 {
-    class Transactions
+    public class Transactions
     {
         public decimal Amount { get; set; }
         public string Memo { get; set; }
