@@ -12,7 +12,7 @@ namespace BankWorm.Models
         public Guid AccountNumber = new Guid();
         public AccountType Type;
         public string AccountName { get; set; }
-        public IEnumerable<Transactions> Transactions { get; set; }
+        public List<Transactions> Transactions { get; set; }
         public int Id { get; set; }
 
         public bool HasReachedWithdrawalLimit(TransactionType type, AccountType accountType)

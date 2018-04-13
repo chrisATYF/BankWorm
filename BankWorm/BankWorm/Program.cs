@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,7 +115,7 @@ namespace BankWorm
                 {
                     case "C":
                         break;
-                        
+
                     case "S":
                         var canOpen = _customerService.CanOpenSavingsaccount(customer);
                         if (canOpen)
@@ -130,7 +131,7 @@ namespace BankWorm
                     case "X":
                         creatingAccount = false;
                         break;
-                        
+
                     default:
                         Console.WriteLine("Unrecognized option");
                         break;
@@ -157,12 +158,12 @@ namespace BankWorm
                     case "A":
                         foreach (var account in customer.Accounts)
                         {
+                            _customerService.PopulateAccount(account);
                             Console.WriteLine($"Balance for {account.Type} {account.AccountName} is {account.AvailableBalance().ToString("C")}");
                         }
                         break;
 
                     case "C":
-                        
                         Console.WriteLine($"Checking account transaction dates for {customer.CustomerName} is ...");
                         break;
 

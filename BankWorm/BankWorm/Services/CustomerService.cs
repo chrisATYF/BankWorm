@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BankWorm.Models;
 using BankWorm.Enums;
+using System.IO;
 
 namespace BankWorm.Services
 {
@@ -29,16 +30,7 @@ namespace BankWorm.Services
                             AccountName = "test1",
                             AccountNumber = Guid.NewGuid(),
                             Type = AccountType.Savings,
-                            Transactions = new List<Transactions>
-                            {
-                                new Transactions
-                                {
-                                    Amount = 100M,
-                                    Memo = "100 dollars added",
-                                    TransactionDate = DateTime.Now,
-                                    TypeOfTransaction = TransactionType.Debit
-                                }
-                            }
+                            Transactions = new List<Transactions>()
                         },
 
                         new Account
@@ -46,16 +38,7 @@ namespace BankWorm.Services
                             AccountName = "test2",
                             AccountNumber = Guid.NewGuid(),
                             Type = AccountType.Checking,
-                            Transactions = new List<Transactions>
-                            {
-                                new Transactions
-                                {
-                                    Amount = 10M,
-                                    Memo = "10 dollars added",
-                                    TransactionDate = DateTime.Now,
-                                    TypeOfTransaction = TransactionType.Credit
-                                }
-                            }
+                            Transactions = new List<Transactions>()
                         }
                     },
                 }
@@ -103,6 +86,38 @@ namespace BankWorm.Services
             };
 
             _customers.ToList().Add(customer);
+        }
+
+        public void PopulateAccount(Account accountToPopulate)
+        {
+            try
+            {
+                var fileName1 = "C:\\Source\\acadotnet\\BankWorm\\transactionfile.csv";
+                var fileName2 = @"C:\Source\acadotnet\BankWorm\transactionfile-data.csv";
+
+                var lines = File.ReadAllLines(fileName2).ToList().Skip(1);
+                if (accountToPopulate.Transactions == null)
+                {
+                    accountToPopulate.Transactions = new List<Transactions>();
+                }
+                foreach (var line in lines)
+                {
+                    var cells = line.Split(',');
+
+                    var tfv = new Transactions
+                    {
+                        TransactionDate = DateTime.Parse(cells[0]),
+                        Memo = cells[1],
+                        TypeOfTransaction = TransactionTypeExt.TransactionConvert(cells[2]),
+                        Amount = Convert.ToDecimal(cells[3]),
+                    };
+                    accountToPopulate.Transactions.Add(tfv);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

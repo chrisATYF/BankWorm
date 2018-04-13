@@ -11,4 +11,16 @@ namespace BankWorm.Enums
         Debit,
         Credit
     }
+
+    public static class TransactionTypeExt
+    {
+        public static TransactionType TransactionConvert(string transactionType)
+        {
+            if (transactionType == "Debit")
+            {
+                return TransactionType.Debit;
+            }
+            return TransactionType.Credit;
+        }
+    }
 }
