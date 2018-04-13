@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BankWorm.Models;
 using BankWorm.Services;
 using BankWorm.View;
@@ -27,15 +24,11 @@ namespace BankWorm
             while (isRunning)
             {
                 userView.WelcomeScreen(WelcomeMessage);
-
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
                 {
                     case "R":
-                        Console.WriteLine("Enter customer ID");
-                        var reportCustNumber = Convert.ToInt32(Console.ReadLine());
-                        var reportCustomer = _customerService.GetCustomerById(reportCustNumber);
-                        CustomerReports(reportCustomer);
+                        CustomerReports(userView.CustomerReport(_customerService));
                         break;
 
                     case "Q":
@@ -50,16 +43,8 @@ namespace BankWorm
                         break;
                 }
             }
-
             Console.WriteLine("Goodbye");
             Console.ReadLine();
-        }
-
-        static void PrintMenu(string menuText)
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(menuText);
-            Console.ForegroundColor = ConsoleColor.Cyan;
         }
 
         static void ManageCustomerPrompts()
@@ -68,24 +53,15 @@ namespace BankWorm
             while (manageCustomers)
             {
                 userView.WelcomeScreen(CustomerMessage);
-
                 var input = Console.ReadLine();
-
                 switch (input.ToUpper())
                 {
                     case "C":
-                        Console.WriteLine("Enter customer number");
-                        var customerNumber = Convert.ToInt32(Console.ReadLine());
-                        var customer = _customerService.GetCustomerById(customerNumber);
-                        Console.WriteLine(customer.CustomerName);
-                        CreateNewAccount(customer);
+                        CreateNewAccount(userView.CustomerAccess(_customerService));
                         break;
 
                     case "R":
-                        Console.WriteLine("Enter customer ID");
-                        var reportCustNumber = Convert.ToInt32(Console.ReadLine());
-                        var reportCustomer = _customerService.GetCustomerById(reportCustNumber);
-                        CustomerReports(reportCustomer);
+                        CustomerReports(userView.CustomerReport(_customerService));
                         break;
 
                     case "X":
@@ -105,11 +81,11 @@ namespace BankWorm
             while (creatingAccount)
             {
                 userView.WelcomeScreen(CreationMessage);
-
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
                 {
                     case "C":
+                        Console.WriteLine("Opening checking account");
                         break;
 
                     case "S":

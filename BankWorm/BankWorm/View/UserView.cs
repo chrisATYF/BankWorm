@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BankWorm.Models;
+using BankWorm.Services;
 
 namespace BankWorm.View
 {
@@ -39,6 +41,23 @@ namespace BankWorm.View
                 Console.WriteLine("-- 'S' Savings account transactions");
                 Console.WriteLine("-- 'X' to return to main menu");
             }
+        }
+
+        public Customer CustomerReport(CustomerService customerService)
+        {
+            Console.WriteLine("Enter customer ID");
+            var reportCustNumber = Convert.ToInt32(Console.ReadLine());
+            var reportCustomer = customerService.GetCustomerById(reportCustNumber);
+            return reportCustomer;
+        }
+
+        public Customer CustomerAccess(CustomerService customerService)
+        {
+            Console.WriteLine("Enter customer number");
+            var customerNumber = Convert.ToInt32(Console.ReadLine());
+            var customer = customerService.GetCustomerById(customerNumber);
+            Console.WriteLine(customer.CustomerName);
+            return customer;
         }
 
         static void PrintMenu(string menuText)
