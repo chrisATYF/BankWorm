@@ -6,12 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using BankWorm.Models;
 using BankWorm.Services;
+using BankWorm.View;
 
 namespace BankWorm
 {
     public class Program
     {
         private static readonly CustomerService _customerService = new CustomerService();
+        public static UserView userView = new UserView();
+        public static string WelcomeMessage = "Main Menu";
+        public static string CustomerMessage = "Customer Menu";
+        public static string CreationMessage = "Account Creation Menu";
+        public static string ReportMessage = "Report Menu";
 
         static void Main(string[] args)
         {
@@ -20,13 +26,9 @@ namespace BankWorm
             var isRunning = true;
             while (isRunning)
             {
-                PrintMenu("Main Menu");
-                Console.WriteLine("-- 'C' to manage customers");
-                Console.WriteLine("-- 'R' for reports");
-                Console.WriteLine("-- 'Q' to quit");
+                userView.WelcomeScreen(WelcomeMessage);
 
                 var input = Console.ReadLine();
-
                 switch (input.ToUpper())
                 {
                     case "R":
@@ -65,10 +67,7 @@ namespace BankWorm
             var manageCustomers = true;
             while (manageCustomers)
             {
-                PrintMenu("Customer Menu");
-                Console.WriteLine("-- 'C' to manage customers");
-                Console.WriteLine("-- 'R' for reports");
-                Console.WriteLine("-- 'X' to return to main menu");
+                userView.WelcomeScreen(CustomerMessage);
 
                 var input = Console.ReadLine();
 
@@ -105,10 +104,7 @@ namespace BankWorm
             var creatingAccount = true;
             while (creatingAccount)
             {
-                PrintMenu("Account Creation Menu");
-                Console.WriteLine("-- 'C' to open a checking account");
-                Console.WriteLine("-- 'S' to open a savings account");
-                Console.WriteLine("-- 'X' to return to main menu");
+                userView.WelcomeScreen(CreationMessage);
 
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
@@ -145,12 +141,7 @@ namespace BankWorm
             while (isReporting)
             {
                 //TODO: For a given account, supply all transactions by start/end date
-
-                PrintMenu("Report Menu");
-                Console.WriteLine("-- 'A' Show all account balances");
-                Console.WriteLine("-- 'C' Checking account transactions");
-                Console.WriteLine("-- 'S' Savings account transactions");
-                Console.WriteLine("-- 'X' to return to main menu");
+                userView.WelcomeScreen(ReportMessage);
 
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
