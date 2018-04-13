@@ -10,7 +10,7 @@ namespace BankWorm.Services
 {
     public class CustomerService
     {
-        private readonly IEnumerable<Customer> _customers;
+        private readonly List<Customer> _customers;
         private readonly Random _random = new Random();
 
         public CustomerService()
@@ -26,23 +26,38 @@ namespace BankWorm.Services
                     {
                         new Account
                         {
+                            AccountName = "test1",
                             AccountNumber = Guid.NewGuid(),
                             Type = AccountType.Savings,
                             Transactions = new List<Transactions>
                             {
-
+                                new Transactions
+                                {
+                                    Amount = 100M,
+                                    Memo = "100 dollars added",
+                                    TransactionDate = DateTime.Now,
+                                    TypeOfTransaction = TransactionType.Debit
+                                }
                             }
                         },
+
                         new Account
                         {
+                            AccountName = "test2",
                             AccountNumber = Guid.NewGuid(),
                             Type = AccountType.Checking,
                             Transactions = new List<Transactions>
                             {
-
+                                new Transactions
+                                {
+                                    Amount = 10M,
+                                    Memo = "10 dollars added",
+                                    TransactionDate = DateTime.Now,
+                                    TypeOfTransaction = TransactionType.Credit
+                                }
                             }
                         }
-                    }
+                    },
                 }
             };
         }
@@ -88,34 +103,6 @@ namespace BankWorm.Services
             };
 
             _customers.ToList().Add(customer);
-
-            _customers.PersistChanges(customer);
-        }
-    }
-
-    public static class FakeDatabase
-    {
-        public static void PersistChanges(this IEnumerable<Customer> customers, Customer newOrUpdatedCustomer)
-        {
-            var existingCustomer = customers.FirstOrDefault(c => c.Id == newOrUpdatedCustomer.Id);
-            if (existingCustomer == null)
-            {
-                customers.ToList().Add(newOrUpdatedCustomer);
-            }
-
-            if (existingCustomer.Accounts != null && !existingCustomer.Accounts.Any() && newOrUpdatedCustomer.Accounts.Any())
-            {
-                existingCustomer.Accounts.ToList().AddRange(newOrUpdatedCustomer.Accounts);
-            }
-
-            foreach (var a in newOrUpdatedCustomer.Accounts)
-            {
-                var existingAccount = existingCustomer.Accounts?.FirstOrDefault(c => c.Id == a.Id);
-                if (existingAccount == null)
-                {
-                    existingCustomer.Accounts.ToList().Add(a);
-                }
-            }
         }
     }
 }

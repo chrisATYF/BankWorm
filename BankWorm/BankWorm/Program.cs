@@ -143,7 +143,6 @@ namespace BankWorm
             var isReporting = true;
             while (isReporting)
             {
-                //TODO: Show all Accounts with current balance
                 //TODO: For a given account, supply all transactions by start/end date
 
                 PrintMenu("Report Menu");
@@ -156,15 +155,19 @@ namespace BankWorm
                 switch (input.ToUpper())
                 {
                     case "A":
-                        Console.WriteLine($"Balance for {customer.CustomerName} is ...");
+                        foreach (var account in customer.Accounts)
+                        {
+                            Console.WriteLine($"Balance for {account.Type} {account.AccountName} is {account.AvailableBalance().ToString("C")}");
+                        }
                         break;
 
                     case "C":
-                        Console.WriteLine($"Checking account transactions for {customer.CustomerName} is ...");
+                        
+                        Console.WriteLine($"Checking account transaction dates for {customer.CustomerName} is ...");
                         break;
 
                     case "S":
-                        Console.WriteLine($"Savings account transactions for {customer.CustomerName} is ...");
+                        Console.WriteLine($"Savings account transaction dates for {customer.CustomerName} is ...");
                         break;
 
                     case "X":

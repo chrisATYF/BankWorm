@@ -12,6 +12,5 @@ namespace BankWorm.Models
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public IEnumerable<Account> Accounts { get; set; }
-        
     }
 }

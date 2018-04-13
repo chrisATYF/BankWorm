@@ -63,5 +63,15 @@ namespace BankWorm.Models
         {
             return DepositAmount + transactions.Amount;
         }
+
+        public decimal AvailableBalance()
+        {
+            return Transactions.Sum(t => t.Amount);
+        }
+
+        public DateTime TransactionDates(Transactions transactions)
+        {
+            return DateTime.Now;
+        }
     }
 }
