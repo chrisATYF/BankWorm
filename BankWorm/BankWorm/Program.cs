@@ -85,14 +85,14 @@ namespace BankWorm
                 switch (input.ToUpper())
                 {
                     case "C":
-                        Console.WriteLine("Opening checking account");
+                        userView.CreateACustomer(_customerService, customer);
                         break;
 
                     case "S":
-                        var canOpen = _customerService.CanOpenSavingsaccount(customer);
-                        if (canOpen)
+                        if (_customerService.CanOpenSavingsaccount(customer))
                         {
                             Console.WriteLine("Opening savings account.");
+                            _customerService.CreateCustomer(customer.CustomerName, customer.CustomerEmail);
                         }
                         else
                         {
@@ -118,7 +118,6 @@ namespace BankWorm
             {
                 //TODO: For a given account, supply all transactions by start/end date
                 userView.WelcomeScreen(ReportMessage);
-
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
                 {
@@ -131,7 +130,28 @@ namespace BankWorm
                         break;
 
                     case "C":
-                        Console.WriteLine($"Checking account transaction dates for {customer.CustomerName} is ...");
+                        Console.WriteLine("Enter checking or savings");
+                        var accountType = Convert.ToString(Console.ReadLine());
+                        if (accountType.ToLower() == "Checking")
+                        {
+                            Console.WriteLine("Enter a start date");
+                            var startDate = Convert.ToDateTime(Console.ReadLine());
+                            Console.WriteLine("Enter an end date");
+                            var endDate = Convert.ToDateTime(Console.ReadLine());
+                            foreach (var account in customer.Accounts)
+                            {
+                                _customerService.PopulateAccount(account);
+                                var dates = account.Transactions.Where(t => t.TransactionDate == startDate);
+                            }
+                        }
+                        else if (accountType.ToLower() == "savings")
+                        {
+                            Console.WriteLine("Enter a start date");
+                            var startDate = Convert.ToDateTime(Console.ReadLine());
+                            Console.WriteLine("Enter an end date");
+                            var endDate = Convert.ToDateTime(Console.ReadLine());
+                        }
+                        Console.WriteLine($"Checking account transaction dates for {customer.CustomerName} are ...");
                         break;
 
                     case "S":

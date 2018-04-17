@@ -22,14 +22,14 @@ namespace BankWorm.View
             if (menu == "Customer Menu")
             {
                 PrintMenu("Customer Menu");
-                Console.WriteLine("-- 'C' to manage customers");
-                Console.WriteLine("-- 'R' for reports");
+                Console.WriteLine("-- 'C' to create a new account");
+                Console.WriteLine("-- 'R' for account reports");
                 Console.WriteLine("-- 'X' to return to main menu");
             }
             if (menu == "Account Creation Menu")
             {
                 PrintMenu("Account Creation Menu");
-                Console.WriteLine("-- 'C' to open a checking account");
+                Console.WriteLine("-- 'C' to open a new account");
                 Console.WriteLine("-- 'S' to open a savings account");
                 Console.WriteLine("-- 'X' to return to main menu");
             }
@@ -57,6 +57,21 @@ namespace BankWorm.View
             var customerNumber = Convert.ToInt32(Console.ReadLine());
             var customer = customerService.GetCustomerById(customerNumber);
             Console.WriteLine(customer.CustomerName);
+            return customer;
+        }
+
+        public Customer CreateACustomer(CustomerService customerService, Customer customer)
+        {
+            Console.WriteLine("Enter your name");
+            var name = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Enter your email address");
+            var email = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Creating your profile and opening your checking account");
+            if (customerService.CanOpenCheckingAccount(customer))
+            {
+                customerService.CreateCustomer(name, email);
+            }
+
             return customer;
         }
 

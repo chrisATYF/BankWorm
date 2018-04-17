@@ -52,6 +52,19 @@ namespace BankWorm.Services
             return _customers.ToList();
         }
 
+        public bool CanOpenCheckingAccount(Customer customer)
+        {
+            var c = _customers.Where(r => r.Id == customer.Id).FirstOrDefault();
+            var a = c.Accounts.Any(i => i.Type == AccountType.Checking);
+
+            if (!a)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public bool CanOpenSavingsaccount(Customer customer)
         {
             var c = _customers.Where(r => r.Id == customer.Id).FirstOrDefault();
@@ -76,15 +89,26 @@ namespace BankWorm.Services
             return _customers.FirstOrDefault(c => c.Id == customerId);
         }
 
-        public void Create(string name, string email)
+        public void CreateCustomer(string name, string email)
         {
             var customer = new Customer
             {
                 Id = _random.Next(1, 10000000),
                 CustomerName = name,
-                CustomerEmail = email
+                CustomerEmail = email,
+                Accounts = new List<Account>
+                {
+                    new Account
+                    {
+                        AccountName = "Checking",
+                        AccountNumber = Guid.NewGuid(),
+                        Type = AccountType.Checking,
+                        Transactions = new List<Transactions>()
+                    }
+                }
             };
 
+            Console.WriteLine(customer.Id);
             _customers.ToList().Add(customer);
         }
 
@@ -92,10 +116,11 @@ namespace BankWorm.Services
         {
             try
             {
-                var fileName1 = "C:\\Source\\acadotnet\\BankWorm\\transactionfile.csv";
+                //var fileName1 = "C:\\Source\\acadotnet\\BankWorm\\transactionfile.csv";
                 var fileName2 = @"C:\Source\acadotnet\BankWorm\transactionfile-data.csv";
 
                 var lines = File.ReadAllLines(fileName2).ToList().Skip(1);
+                
                 if (accountToPopulate.Transactions == null)
                 {
                     accountToPopulate.Transactions = new List<Transactions>();
