@@ -21,21 +21,21 @@ namespace BankWorm.View
             }
             if (menu == "Customer Menu")
             {
-                PrintMenu("Customer Menu");
+                PrintMenu($"{menu}");
                 Console.WriteLine("-- 'C' to create a new account");
                 Console.WriteLine("-- 'R' for account reports");
                 Console.WriteLine("-- 'X' to return to main menu");
             }
             if (menu == "Account Creation Menu")
             {
-                PrintMenu("Account Creation Menu");
+                PrintMenu($"{menu}");
                 Console.WriteLine("-- 'C' to open a new account");
                 Console.WriteLine("-- 'S' to open a savings account");
                 Console.WriteLine("-- 'X' to return to main menu");
             }
             if (menu == "Report Menu")
             {
-                PrintMenu("Report Menu");
+                PrintMenu($"{menu}");
                 Console.WriteLine("-- 'A' Show all account balances");
                 Console.WriteLine("-- 'C' Checking account transactions");
                 Console.WriteLine("-- 'S' Savings account transactions");
@@ -64,15 +64,58 @@ namespace BankWorm.View
         {
             Console.WriteLine("Enter your name");
             var name = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Enter your email address");
+            Console.WriteLine("\nEnter your email address");
             var email = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Creating your profile and opening your checking account");
-            if (customerService.CanOpenCheckingAccount(customer))
+            Console.WriteLine($"\nIs this information correct? \nName: {name} \nEmail: {email}");
+            var reply = Convert.ToString(Console.ReadLine());
+            if (reply.ToLower() == "yes")
             {
-                customerService.CreateCustomer(name, email);
+                Console.WriteLine("\nCreating your profile and opening your checking account");
+                if (customerService.CanOpenCheckingAccount(customer))
+                {
+                    customerService.CreateCustomer(name, email);
+                }
+            }
+            else if (reply.ToLower() == "no")
+            {
+                Console.WriteLine("\nBack up and try again");
             }
 
             return customer;
+        }
+
+        public void CheckingTransactionDates(CustomerService customerService, Customer customer, Account account)
+        {
+            Console.WriteLine("Enter a start date");
+            var startDate = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Enter an end date");
+            var endDate = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine($"Checking account transaction dates for {customer.CustomerName}:\n");
+            var listOfDates = customerService.TransactionLists(account);
+            var requestedDates = listOfDates.Where
+                (rd => rd.TransactionDate >= startDate
+                && rd.TransactionDate <= endDate).Select(td => td.TransactionDate).ToList();
+            foreach (var td in requestedDates)
+            {
+                Console.WriteLine($"{td}\n");
+            }
+        }
+
+        public void SavingsTransactionDates(CustomerService customerService, Customer customer, Account account)
+        {
+            Console.WriteLine("Enter a start date");
+            var startDate = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Enter an end date");
+            var endDate = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine($"Savings account transaction dates for {customer.CustomerName}:\n");
+            var listOfDates = customerService.TransactionLists(account);
+            var requestedDates = listOfDates.Where
+                (rd => rd.TransactionDate >= startDate
+                && rd.TransactionDate <= endDate).Select(td => td.TransactionDate).ToList();
+            foreach (var td in requestedDates)
+            {
+                Console.WriteLine($"{td}\n");
+            }
         }
 
         static void PrintMenu(string menuText)

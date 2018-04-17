@@ -47,7 +47,7 @@ namespace BankWorm.Services
 
 
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public List<Customer> GetAllCustomers()
         {
             return _customers.ToList();
         }
@@ -116,19 +116,17 @@ namespace BankWorm.Services
         {
             try
             {
-                //var fileName1 = "C:\\Source\\acadotnet\\BankWorm\\transactionfile.csv";
                 var fileName2 = @"C:\Source\acadotnet\BankWorm\transactionfile-data.csv";
-
                 var lines = File.ReadAllLines(fileName2).ToList().Skip(1);
                 
                 if (accountToPopulate.Transactions == null)
                 {
                     accountToPopulate.Transactions = new List<Transactions>();
                 }
+
                 foreach (var line in lines)
                 {
                     var cells = line.Split(',');
-
                     var tfv = new Transactions
                     {
                         TransactionDate = DateTime.Parse(cells[0]),
@@ -141,6 +139,38 @@ namespace BankWorm.Services
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public List<Transactions> TransactionLists(Account accountToTransact)
+        {
+            try
+            {
+                var fileName = @"C:\Source\acadotnet\BankWorm\transactionfile-data.csv";
+                var lines = File.ReadAllLines(fileName).ToList().Skip(1);
+
+                if (accountToTransact.Transactions == null)
+                {
+                    accountToTransact.Transactions = new List<Transactions>();
+                }
+
+                foreach (var line in lines)
+                {
+                    var cells = line.Split(',');
+                    var tfv = new Transactions
+                    {
+                        TransactionDate = DateTime.Parse(cells[0]),
+                        TypeOfTransaction = TransactionTypeExt.TransactionConvert(cells[2])
+                    };
+                    accountToTransact.Transactions.Add(tfv);
+                }
+
+                return accountToTransact.Transactions;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

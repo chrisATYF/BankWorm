@@ -68,10 +68,5 @@ namespace BankWorm.Models
         {
             return Transactions.Sum(t => t.Amount);
         }
-
-        public DateTime TransactionDates(Transactions transactions)
-        {
-            return DateTime.Now;
-        }
     }
 }
