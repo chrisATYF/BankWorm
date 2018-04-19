@@ -116,6 +116,7 @@ namespace BankWorm.Services
         {
             try
             {
+                //TODO Write code that reads the file and adds it to the database
                 var fileName2 = @"C:\Source\acadotnet\BankWorm\transactionfile-data.csv";
                 var lines = File.ReadAllLines(fileName2).ToList().Skip(1);
                 

@@ -17,6 +17,10 @@ namespace BankWorm
 
         static void Main(string[] args)
         {
+            var efService = new EFCustomerService();
+
+
+
             Console.WriteLine("Welcome to BankWorm... your protection from the early birds.");
 
             var isRunning = true;

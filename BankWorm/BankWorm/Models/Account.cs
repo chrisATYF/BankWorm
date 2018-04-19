@@ -26,7 +26,6 @@ namespace BankWorm.Models
                     Console.WriteLine("You have reached your withdrawal limit.");
                 }
             }
-            
             return true;
         }
 
@@ -50,7 +49,6 @@ namespace BankWorm.Models
                         return WithdrawalAmount - overdraftFee;
                     }
                 }
-
                 return WithdrawalAmount;
             }
             else

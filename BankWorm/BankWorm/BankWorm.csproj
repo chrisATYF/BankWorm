@@ -32,8 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +51,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Account.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AccountType.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\AccountTypes.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BankWormContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankWormContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BankWormContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BankWormContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BankWormContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Customer.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Transaction.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TransactionType.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TransactionTypes.cs">
+      <DependentUpon>BankWormContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Enums\TransactionType.cs" />
     <Compile Include="Models\Account.cs" />
@@ -50,11 +95,34 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\EFCustomerService.cs" />
     <Compile Include="View\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Data\BankWormContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BankWormContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\BankWormContext.edmx.diagram">
+      <DependentUpon>BankWormContext.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data\BankWormContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BankWormContext.edmx</DependentUpon>
+      <LastGenOutput>BankWormContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\BankWormContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BankWormContext.edmx</DependentUpon>
+      <LastGenOutput>BankWormContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
