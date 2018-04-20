@@ -29,7 +29,7 @@ namespace BankWorm.View
             if (menu == "Account Creation Menu")
             {
                 PrintMenu($"{menu}");
-                Console.WriteLine("-- 'C' to open a new account");
+                Console.WriteLine("-- 'C' to open a new checking account");
                 Console.WriteLine("-- 'S' to open a savings account");
                 Console.WriteLine("-- 'X' to return to main menu");
             }

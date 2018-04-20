@@ -9,6 +9,7 @@ namespace BankWorm
     public class Program
     {
         private static readonly CustomerService _customerService = new CustomerService();
+        private static readonly EFCustomerService _eFCustomerService = new EFCustomerService();
         public static UserView userView = new UserView();
         public static string WelcomeMessage = "Main Menu";
         public static string CustomerMessage = "Customer Menu";
@@ -17,9 +18,6 @@ namespace BankWorm
 
         static void Main(string[] args)
         {
-            var efService = new EFCustomerService();
-            efService.CreateCustomer("Bob Marley", "marley420@wow.com", Data.AccountTypes.Savings);
-
             Console.WriteLine("Welcome to BankWorm... your protection from the early birds.");
 
             var isRunning = true;
@@ -55,11 +53,12 @@ namespace BankWorm
             while (manageCustomers)
             {
                 userView.WelcomeScreen(CustomerMessage);
+                var customer = new Customer();
                 var input = Console.ReadLine();
                 switch (input.ToUpper())
                 {
                     case "C":
-                        CreateNewAccount(userView.CustomerAccess(_customerService));
+                        CreateNewAccount(customer);
                         break;
 
                     case "R":
@@ -87,7 +86,7 @@ namespace BankWorm
                 switch (input.ToUpper())
                 {
                     case "C":
-                        userView.CreateACustomer(_customerService, customer);
+                        _eFCustomerService.CreateCustomer(Data.AccountTypes.Checking);
                         break;
 
                     case "S":

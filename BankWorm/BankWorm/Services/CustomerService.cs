@@ -14,36 +14,36 @@ namespace BankWorm.Services
         private readonly List<Customer> _customers;
         private readonly Random _random = new Random();
 
-        public CustomerService()
-        {
-            _customers = new List<Customer>
-            {
-                new Customer
-                {
-                    Id = 123,
-                    CustomerEmail = "chris.guitarist009@gmailcom",
-                    CustomerName = "Chris McDonald",
-                    Accounts = new List<Account>
-                    {
-                        new Account
-                        {
-                            AccountName = "test1",
-                            AccountNumber = Guid.NewGuid(),
-                            Type = AccountType.Savings,
-                            Transactions = new List<Transactions>()
-                        },
+        //public CustomerService()
+        //{
+        //    _customers = new List<Customer>
+        //    {
+        //        new Customer
+        //        {
+        //            Id = 123,
+        //            CustomerEmail = "chris.guitarist009@gmailcom",
+        //            CustomerName = "Chris McDonald",
+        //            Accounts = new List<Account>
+        //            {
+        //                new Account
+        //                {
+        //                    AccountName = "test1",
+        //                    AccountNumber = Guid.NewGuid(),
+        //                    Type = AccountType.Savings,
+        //                    Transactions = new List<Transactions>()
+        //                },
 
-                        new Account
-                        {
-                            AccountName = "test2",
-                            AccountNumber = Guid.NewGuid(),
-                            Type = AccountType.Checking,
-                            Transactions = new List<Transactions>()
-                        }
-                    },
-                }
-            };
-        }
+        //                new Account
+        //                {
+        //                    AccountName = "test2",
+        //                    AccountNumber = Guid.NewGuid(),
+        //                    Type = AccountType.Checking,
+        //                    Transactions = new List<Transactions>()
+        //                }
+        //            },
+        //        }
+        //    };
+        //}
 
 
 
