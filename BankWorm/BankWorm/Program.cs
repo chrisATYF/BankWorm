@@ -18,8 +18,7 @@ namespace BankWorm
         static void Main(string[] args)
         {
             var efService = new EFCustomerService();
-
-
+            efService.CreateCustomer("Bob Marley", "marley420@wow.com", Data.AccountTypes.Savings);
 
             Console.WriteLine("Welcome to BankWorm... your protection from the early birds.");
 
